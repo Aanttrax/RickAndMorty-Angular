@@ -15,7 +15,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'character-list',
+    path: 'characters-list',
     loadChildren: () =>
       import('./pages/characters/characters-list/characters-list.module').then(
         (m) => m.CharactersListModule
@@ -31,12 +31,12 @@ const routes: Routes = [
   {
     path: 'about',
     loadChildren: () =>
-      import('./pages/about/about/about.module').then((m) => m.AboutModule),
+      import('./pages/about/about.module').then((m) => m.AboutModule),
   },
   {
     path: '**',
     loadChildren: () =>
-      import('./pages/notFound/not-found/not-found.module').then(
+      import('./pages/notFound/not-found.module').then(
         (m) => m.NotFoundModule
       ),
   },
