@@ -1,1 +1,6 @@
-{{ characters$ | async | json }}
+<section class="character__list">
+    <app-characters-card
+        *ngFor="let character of characters$ | async"
+        [character]="character"
+    ></app-characters-card>
+</section>

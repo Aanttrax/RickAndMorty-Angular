@@ -1,1 +1,7 @@
-<p>episodes works!</p>
+<section class="container">
+    <ul class="episodes__list">
+        <li *ngFor="let episode of episodes$ | async">
+            {{ episode.episode }} - {{ episode.name }}
+        </li>
+    </ul>
+</section>
