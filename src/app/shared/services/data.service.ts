@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject, take, tap } from 'rxjs';
-import { Episode,Character, DataResponse } from '../interfaces/data.interface';
+import { Episode, Character, DataResponse } from '../interfaces/data.interface';
+import { LocalStorageService } from './localStorage.service';
 
 const QUERY = gql`
     {
@@ -34,20 +35,35 @@ export class DataService {
 
     private charactersSubject = new BehaviorSubject<Character[]>([]);
     characters$ = this.charactersSubject.asObservable();
-    constructor(private apollo: Apollo) {
-        this.getDataApi()
+
+    constructor(
+        private apollo: Apollo,
+        private localStoregeSvc: LocalStorageService
+    ) {
+        this.getDataApi();
     }
 
     private getDataApi(): void {
-        this.apollo.watchQuery<DataResponse>({
-            query:QUERY
-        }).valueChanges.pipe(
-            take(1),
-            tap(({data})=>{
-                const {characters,episodes}=data;
-                this.charactersSubject.next(characters.results);
-                this.episodeSubject.next(episodes.results);
+        this.apollo
+            .watchQuery<DataResponse>({
+                query: QUERY,
             })
-        ).subscribe();
+            .valueChanges.pipe(
+                take(1),
+                tap(({ data }) => {
+                    const { characters, episodes } = data;
+                    this.episodeSubject.next(episodes.results);
+                    this.parseCharactersData(characters.results)
+                })
+            )
+            .subscribe();
+    }
+    private parseCharactersData(characters: Character[]): void {
+        const currentsFav = this.localStoregeSvc.getFavoritesCharacters();
+        const newData = characters.map((character) => {
+            const found = !!currentsFav.find((fav:Character)=> fav.id === character.id)
+            return {...character,isFavorite:found}
+        });
+        this.charactersSubject.next(newData)
     }
 }
