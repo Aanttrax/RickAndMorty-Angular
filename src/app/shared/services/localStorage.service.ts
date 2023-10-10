@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Character } from '@shared/interfaces/data.interface';
+import { ToastrService } from 'ngx-toastr';
 
 const MY_FAVORITES = 'myFavorites';
 
@@ -11,7 +12,7 @@ export class LocalStorageService {
     private charactersFavSubject = new BehaviorSubject<Character[]>([]);
     charactersFav$ = this.charactersFavSubject.asObservable();
 
-    constructor() {
+    constructor(private toastrSvc:ToastrService) {
         this.initialStorage();
     }
 
@@ -42,9 +43,10 @@ export class LocalStorageService {
             const characters = currentsFav.filter((item:Character) => item.id !== id);
             localStorage.setItem(MY_FAVORITES,JSON.stringify([...characters]))
             this.charactersFavSubject.next([...characters]);
+            this.toastrSvc.warning(`Removed from favorite`,'RickAndMortyApp')
         } catch (e) {
             console.log('Error removing localStorage', e);
-            alert('Error');
+            this.toastrSvc.error(`Error removing localStorage ${e}`,'RickAndMortyApp')
         }
     }
 
@@ -56,9 +58,10 @@ export class LocalStorageService {
                 JSON.stringify([...currentsFav, character])
             );
             this.charactersFavSubject.next([...currentsFav, character]);
+            this.toastrSvc.success(`${character.name} added to favorites`,'RickAndMortyApp')
         } catch (e) {
-            console.log('Error getting favorites from localStorage', e);
-            alert('Error');
+            console.log('Error saving favorites to localStorage', e);
+            this.toastrSvc.error(`Error saving favorites to localStorage ${e}`,'RickAndMortyApp')
         }
     }
 
