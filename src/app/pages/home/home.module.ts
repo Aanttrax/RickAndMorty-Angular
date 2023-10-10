@@ -8,7 +8,7 @@ import { CharactersCardModule } from '../characters/characters-card/characters-c
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,
