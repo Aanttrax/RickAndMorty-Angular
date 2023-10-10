@@ -8,15 +8,14 @@ import { DataService } from '@shared/services/data.service';
     styleUrls: ['./characters-list.component.scss'],
 })
 export class CharactersListComponent {
-
     characters$ = this.dataSvc.characters$;
     showButton = false;
     private scrollHeight = 500;
-    private pageNum=1;
+    private pageNum = 1;
 
     constructor(
-        @Inject(DOCUMENT) private document:Document,
-        private dataSvc: DataService,
+        @Inject(DOCUMENT) private document: Document,
+        private dataSvc: DataService
     ) {}
 
     @HostListener('window:scroll')
@@ -26,12 +25,12 @@ export class CharactersListComponent {
         this.showButton = (yOffSet || scrollTop) > this.scrollHeight;
     }
 
-    onScrollTop():void{
+    onScrollTop(): void {
         this.document.documentElement.scrollTop = 0;
     }
 
-    onScrollDown():void{
-this.pageNum ++
-        this.dataSvc.getCharactersByPage(this.pageNum)
+    onScrollDown(): void {
+        this.pageNum++;
+        this.dataSvc.getCharactersByPage(this.pageNum);
     }
 }
