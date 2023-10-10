@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { BehaviorSubject, take, tap } from 'rxjs';
+import { BehaviorSubject, take, tap, map, withLatestFrom } from 'rxjs';
 import { Episode, Character, DataResponse } from '../interfaces/data.interface';
 import { LocalStorageService } from './localStorage.service';
 
@@ -41,6 +41,33 @@ export class DataService {
         private localStoregeSvc: LocalStorageService
     ) {
         this.getDataApi();
+    }
+
+    getCharactersByPage(pageNum:number):void{
+
+        const QUERY_BY_PAGE = gql`{
+        characters(page:${pageNum}) {
+            results {
+                id
+                name
+                id
+                status
+                species
+                gender
+                image
+            }
+        }
+    }`;
+        this.apollo.watchQuery<any>({
+            query: QUERY_BY_PAGE
+        }).valueChanges.pipe(
+            take(1),
+            map(({ data }) => data.characters),
+            withLatestFrom(this.characters$),
+            tap(([apiResponse, characters])=>{
+                this.parseCharactersData([...characters,...apiResponse.results])
+            })
+        ).subscribe()
     }
 
     private getDataApi(): void {

@@ -1,6 +1,9 @@
-<section class="character__list">
+<section class="character__list" infiniteScroll (scrolled)="onScrollDown()">
     <app-characters-card
         *ngFor="let character of characters$ | async"
         [character]="character"
     ></app-characters-card>
+    <button (click)="onScrollTop()" *ngIf="showButton" class="button">
+        🔝
+    </button>
 </section>
