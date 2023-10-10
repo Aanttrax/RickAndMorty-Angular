@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { BehaviorSubject, take, tap, map, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, take, tap, map, withLatestFrom, mergeMap, find } from 'rxjs';
 import { Episode, Character, DataResponse } from '../interfaces/data.interface';
 import { LocalStorageService } from './localStorage.service';
 
@@ -85,6 +85,7 @@ export class DataService {
             )
             .subscribe();
     }
+
     private parseCharactersData(characters: Character[]): void {
         const currentsFav = this.localStoregeSvc.getFavoritesCharacters();
         const newData = characters.map((character) => {
@@ -92,5 +93,12 @@ export class DataService {
             return {...character,isFavorite:found}
         });
         this.charactersSubject.next(newData)
+    }
+
+    getDetails(id:number):any{
+        return this.characters$.pipe(
+            mergeMap((characters:Character[])=>characters),
+            find((character:Character) => character.id === id)
+        )
     }
 }

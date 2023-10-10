@@ -1,1 +1,6 @@
-<p>characters-details works!</p>
+<section class="character__details">
+    <app-characters-card
+        *ngIf="character$ | async as character"
+        [character]="character"
+    ></app-characters-card>
+</section>
