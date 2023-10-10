@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CharactersListRoutingModule } from './characters-list-routing.module';
-import { CharactersListComponent } from './characters-list.component';
 import { CharactersCardModule } from '@characters/characters-card/characters-card.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { CharactersListComponent } from './characters-list.component';
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { CharactersCardModule } from '@characters/characters-card/characters-car
   imports: [
     CommonModule,
     CharactersListRoutingModule,
-    CharactersCardModule
+    CharactersCardModule,
+    InfiniteScrollModule
   ]
 })
 export class CharactersListModule { }
