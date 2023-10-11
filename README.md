@@ -1,27 +1,73 @@
-# RickAndMortyAngular
+# Rick and Morty Angular App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.4.
+![Rick and Morty Logo](./screenShot/screenshot1.png)
 
-## Development server
+This is a sample project that uses Angular to display information about the "Rick and Morty" TV series. The project utilizes the public [Rick and Morty API](https://rickandmortyapi.com/).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Screenshots
 
-## Code scaffolding
+![Screenshot 2](./screenShot/screenshot2.png)
+![Screenshot 3](./screenShot/screenshot3.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+-   List of "Rick and Morty" characters.
+-   Character details, including status, species, gender, and more..
+-   Infinity Scroll.
+-   Add or Remove from Favorites.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Requirements
 
-## Running unit tests
+-   [Node.js](https://nodejs.org/) installed on your system.
+-   [Angular CLI](https://cli.angular.io/) installed globally.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installation
 
-## Running end-to-end tests
+Follow these steps to install and run the application:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1.  Clone the repository:
 
-## Further help
+    ```bash
+    git clone https://github.com/Aanttrax/RickAndMorty-Angular.git
+    ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2.  Navigate to the project directory:
+
+    ```bash
+    cd RickAndMorty-Angular
+    ````
+
+3. Install the dependencies:
+
+	```bash
+    npm install
+    ```
+
+4. Start the application:
+
+    ```bash
+    ng serve
+    ```
+
+5. Open your browser and go to http://localhost:4200/.
+
+
+## Usage
+
+Once the application is up and running, you can do the following:
+
+- Browse the list of "Rick and Morty" characters.
+- Click on a character to view more details.
+- Add to Favorites.
+- Remove from Favorites.
+- Infinity Scroll.
+
+## Contribution
+
+If you want to contribute to this project, feel free to open issues and submit pull requests.
+
+## Contact
+You can contact the project author at Arielrt20@gmail.com or Arielrt_@hotmail.com
+
+Enjoy exploring the "Rick and Morty" universe!
+
